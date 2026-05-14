@@ -1,0 +1,258 @@
+<!doctype html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vevfrontgame - Real-Time Strategy</title>
+  <meta name="description"
+    content="Vevfrontgame is a free real-time territorial strategy game. An unofficial AGPL v3 fork of OpenFrontIO." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="icon" type="image/png" sizes="192x192" href="../../resources/images/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../resources/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../../resources/images/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../resources/images/favicon-16x16.png">
+  <meta name="msapplication-TileImage" content="../../resources/images/ms-icon-144x144.png">
+
+  <link rel="manifest" href="../../resources/manifest.json" />
+
+  <!-- Critical CSS to prevent FOUC -->
+  <style>
+    .preload * {
+      -webkit-transition: none !important;
+      -moz-transition: none !important;
+      -ms-transition: none !important;
+      -o-transition: none !important;
+      transition: none !important;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+  </style>
+
+</head>
+
+<body
+  class="h-full select-none font-sans min-h-screen bg-opacity-0 bg-cover bg-center bg-fixed transition-opacity duration-300 ease-in-out flex flex-col">
+  <header class="l-header">
+    <div class="l-header__content">
+      <div id="game-version" class="l-header__highlightText text-center">
+        Loading version...
+      </div>
+    </div>
+  </header>
+
+  <div class="bg-image"></div>
+
+  <!-- Main container with responsive padding -->
+  <main class="flex justify-center flex-grow px-4">
+    <div class="main-container w-full max-w-4xl">
+
+      <div class="hero-section">
+        <h1 class="hero-title">Vevfrontgame</h1>
+        <h2 class="hero-subtitle">Real-Time Territorial Strategy</h2>
+        <p class="hero-description">
+          Unofficial AGPL v3 fork of
+          <a href="https://github.com/openfrontio/OpenFrontIO" target="_blank"
+            rel="noopener noreferrer">OpenFrontIO</a>.
+          Not affiliated with or endorsed by OpenFront LLC.
+        </p>
+      </div>
+
+      <!-- Legal & source notice (AGPL v3 compliance) -->
+      <div class="legal-notice"
+        style="margin: 1rem auto 1.5rem auto; max-width: 720px; padding: 0.9rem 1.2rem; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px; font-size: 0.85rem; line-height: 1.5; color: rgba(255, 255, 255, 0.85); text-align: left;">
+        <p style="margin: 0 0 0.6rem 0;"><strong style="color: #fff;">Legal & licensing notice.</strong></p>
+        <p style="margin: 0 0 0.6rem 0;">This service is an independent, non-commercial fork of <a
+            href="https://github.com/openfrontio/OpenFrontIO" target="_blank" rel="noopener noreferrer"
+            style="color: #4a9eff; text-decoration: underline;">OpenFrontIO</a>, operated without affiliation,
+          sponsorship, or endorsement from OpenFront.io, OpenFront LLC, OpenFront Inc., or any related entity.</p>
+        <p style="margin: 0 0 0.6rem 0;"><strong style="color: #fff;">Source code (AGPL v3.0)</strong> &mdash; In
+          accordance with the <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank"
+            rel="noopener noreferrer" style="color: #4a9eff; text-decoration: underline;">GNU AGPL v3.0</a>, the
+          complete corresponding source of this deployment is available at: <a
+            href="https://github.com/Helloworld741a/vevfrontgame-source" target="_blank" rel="noopener noreferrer"
+            style="color: #4a9eff; text-decoration: underline; word-break: break-all;">https://github.com/Helloworld741a/vevfrontgame-source</a>
+        </p>
+        <p style="margin: 0;"><strong style="color: #fff;">Open assets (CC BY-SA 4.0)</strong> &mdash; Visual assets in
+          the upstream <code>/resources</code> directory are licensed under the <a
+            href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer"
+            style="color: #4a9eff; text-decoration: underline;">Creative Commons BY-SA 4.0</a> license. Original assets:
+          &copy; OpenFront LLC and contributors. Modifications from upstream are documented in the <a
+            href="https://github.com/Helloworld741a/vevfrontgame-source/blob/main/CHANGELOG.md" target="_blank"
+            rel="noopener noreferrer" style="color: #4a9eff; text-decoration: underline;">CHANGELOG.md</a> of the source
+          repository.</p>
+      </div>
+
+      <div class="game-controls space-y-4">
+
+        <token-login class="w-[20%] md:w-[15%]"></token-login>
+
+        <div class="container__row flex gap-3 items-center b-login">
+          <flag-input class="w-[20%] md:w-[20%]"></flag-input>
+          <territory-patterns-modal class="w-[20%] md:w-[15%]">
+            <button id="territory-patterns-input-preview-button"
+              class="w-full border p-[4px] rounded-lg flex cursor-pointer border-black/30 dark:border-gray-300/60 bg-white/70 dark:bg-[rgba(55,65,81,0.7)] justify-center"
+              title="Pick a pattern!"></button>
+          </territory-patterns-modal>
+          <username-input class="relative w-full"></username-input>
+          <news-button class="w-[20%] md:w-[15%] component-hideable"></news-button>
+        </div>
+        <div></div>
+        <div>
+          <div class="map-b bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-lg  border border-blue-500/20">
+            <public-lobby class="block"></public-lobby>
+          </div>
+
+        </div>
+        <div class="b-btn container__row container__row--equal flex gap-3" style="margin-bottom: 20px;">
+          <o-button id="host-lobby-button" title="Create Lobby" translationKey="main.create_lobby" block secondary
+            class="glow-button"></o-button>
+          <o-button id="join-private-lobby-button" title="Join Lobby" translationKey="main.join_lobby" block secondary
+            class="glow-button"></o-button>
+        </div>
+
+        <o-button id="single-player" title="Single Player" translationKey="main.single_player" block
+          class="glow-button"></o-button>
+
+        <div class="b-tuto space-y-3">
+          <o-button id="help-button" title="Instructions" translationKey="main.instructions" block secondary></o-button>
+          <div class="container__row">
+            <lang-selector class="w-full"></lang-selector>
+          </div>
+        </div>
+
+      </div>
+  </main>
+
+  <!-- User Setting -->
+  <button id="settings-button" title="Settings"
+    class="fixed bottom-4 right-4 z-50 rounded-full p-2 shadow-lg transition-colors duration-300 flex items-center justify-center"
+    style="width: 80px; height: 80px; background-color: #0075ff">
+    <img src="../../resources/images/SettingIconWhite.svg" alt="Settings" style="width: 72px; height: 72px" />
+  </button>
+
+  <!-- Game components -->
+  <div id="customMenu" class="mt-4 sm:mt-6 lg:mt-8">
+    <ul></ul>
+  </div>
+  <div id="app"></div>
+  <div id="radialMenu" class="radial-menu"></div>
+  <div class="flex gap-2 fixed right-[10px] top-[10px] z-50 flex-col">
+    <options-menu></options-menu>
+    <player-info-overlay></player-info-overlay>
+  </div>
+  <div class="fixed bottom-[30px] sm:bottom-auto sm:top-[20px] z-50 mx-auto max-w-max inset-x-0 items-center">
+    <heads-up-message></heads-up-message>
+  </div>
+
+  <div class="bottom-0 w-full flex-col-reverse sm:flex-row z-50 md:w-[320px]"
+    style="position: fixed; pointer-events: none">
+    <div class="w-full md:w-2/3 md:fixed sm:right-0 md:bottom-0 md:flex flex-col items-end"
+      style="pointer-events: none">
+      <chat-display></chat-display>
+      <events-display></events-display>
+    </div>
+    <div style="pointer-events: auto">
+      <control-panel></control-panel>
+    </div>
+  </div>
+
+  <!-- Footer section -->
+  <footer class="l-footer">
+    <div class="l-footer__content">
+      <div class="l-footer__col t-text-white">
+        <span style="font-size: 0.85em; opacity: 0.85;">
+          Vevfrontgame — Unofficial fork of
+          <a href="https://github.com/openfrontio/OpenFrontIO" target="_blank" rel="noopener noreferrer"
+            class="t-link">OpenFrontIO</a>
+          — Licensed under
+          <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="noopener noreferrer"
+            class="t-link">AGPL v3</a>
+          — <a href="https://github.com/Helloworld741a/vevfrontgame-source" target="_blank" rel="noopener noreferrer"
+            class="t-link">Source code</a>
+        </span>
+        <a rel="nofollow" href="/privacy-policy.html" class="t-link" target="_blank">
+          Privacy Policy
+        </a>
+        <a rel="nofollow" href="/terms-of-service.html" class="t-link" target="_blank">
+          Terms of Service
+        </a>
+        <nav aria-label="Language selection" role="navigation">
+          <language-links></language-links>
+        </nav>
+      </div>
+    </div>
+  </footer>
+  <account-button></account-button>
+  <!-- Game modals and overlays -->
+  <single-player-modal></single-player-modal>
+  <host-lobby-modal></host-lobby-modal>
+  <join-private-lobby-modal></join-private-lobby-modal>
+  <emoji-table></emoji-table>
+  <build-menu></build-menu>
+  <win-modal></win-modal>
+  <game-starting-modal></game-starting-modal>
+  <game-top-bar></game-top-bar>
+  <unit-display></unit-display>
+  <div class="flex fixed top-[20px] right-[20px] z-[1000] items-start gap-2">
+    <replay-panel></replay-panel>
+    <game-right-sidebar></game-right-sidebar>
+  </div>
+  <settings-modal></settings-modal>
+  <player-panel></player-panel>
+  <help-modal></help-modal>
+  <dark-mode-button></dark-mode-button>
+  <alert-frame></alert-frame>
+  <chat-modal></chat-modal>
+  <user-setting></user-setting>
+  <multi-tab-modal></multi-tab-modal>
+  <news-modal></news-modal>
+  <game-left-sidebar></game-left-sidebar>
+  <flag-input-modal></flag-input-modal>
+  <fps-display></fps-display>
+  <div id="language-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex justify-center items-center">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-96 max-w-full">
+      <h2 class="text-xl font-semibold mb-4">Select Language</h2>
+      <div id="language-list" class="space-y-2 max-h-80 overflow-y-auto"></div>
+      <button class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
+        onclick="document.getElementById('language-modal').classList.add('hidden')">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <!-- Script d'initialisation -->
+  <script>
+    (function () {
+      const path = window.location.pathname;
+      const langFromPath = path.split('/')[1];
+      const supportedLangs = ['fr', 'en', 'it', 'es', 'de'];
+
+      if (supportedLangs.includes(langFromPath)) {
+        document.documentElement.lang = langFromPath;
+      } else {
+        document.documentElement.lang = 'en';
+      }
+    })();
+  </script>
+
+  <script>
+    window.addEventListener("load", function () {
+      requestAnimationFrame(() => {
+        document.documentElement.classList.remove("preload");
+      });
+    });
+  </script>
+
+</body>
+
+</html>

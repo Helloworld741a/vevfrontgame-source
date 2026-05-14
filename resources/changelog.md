@@ -1,0 +1,3 @@
+- Vevfrontgame fork — initial release
+- Based on OpenFrontIO upstream v0.26.6 (commit f552b006)
+- See [CHANGELOG.md](../CHANGELOG.md) in the repository root for the list of fork modifications

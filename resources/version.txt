@@ -1,0 +1,2 @@
+Vevfrontgame fork
+Based on OpenFrontIO v0.26.6
